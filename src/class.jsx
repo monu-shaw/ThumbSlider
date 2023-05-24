@@ -1,13 +1,13 @@
 import React from 'react';
-import ThumbSlider from './App';
+import ThumbSlider, { useThumbNav } from './thumbSlider';
 
 export default function Main() {
-  const r = React.useRef(null);
-  console.log(r);
+  const [thumb, linker] = useThumbNav();
   return (
     <>
-      <ThumbSlider ref={r} />
-      <button onClick={() => r.current.next()}>c</button>
+      <ThumbSlider ref={linker} />
+      <button onClick={() => thumb.next()}>c</button>
+      <button onClick={() => thumb.prev()}>d</button>
     </>
   );
 }
