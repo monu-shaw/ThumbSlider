@@ -20,7 +20,9 @@ const ThumbSlider = React.forwardRef(
   ) => {
     const [p, setP] = React.useState(0);
     const [v, setV] = React.useState(0);
-    ref = 0;
+    ref.current = {
+      next: () => setP(+p + 1),
+    };
     React.useEffect(() => {
       const de = setTimeout(() => {
         setP(v);

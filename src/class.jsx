@@ -7,7 +7,7 @@ export default function Main() {
   return (
     <>
       <ThumbSlider ref={r} />
-      <button onClick={() => console.log(r)}>c</button>
+      <button onClick={() => r.current.next()}>c</button>
     </>
   );
 }
