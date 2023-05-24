@@ -18,26 +18,41 @@ const ThumbSlider = React.forwardRef(
     },
     ref
   ) => {
+    const imgRef = React.useRef();
     const [p, setP] = React.useState(0);
     const [v, setV] = React.useState(0);
-    ref.current = {
-      next: () => setP((p) => (imgList.length > +p + 1 ? +p + 1 : p)),
-      prev: () => setP((p) => (+p - 1 > -1 ? +p - 1 : p)),
+    const utilFunction = {
+      next: () => setV((p) => (imgList.length > +p + 1 ? +p + 1 : p)),
+      prev: () => setV((p) => (+p - 1 > -1 ? +p - 1 : p)),
     };
+    ref.current = utilFunction;
     React.useEffect(() => {
+      imgRef.current.style.transform = 'translateX(-4500px)';
+      imgRef.current.style.opacity = '0';
       const de = setTimeout(() => {
         setP(v);
-      }, 200);
+        imgRef.current.style.transform = 'translateX(4500px)';
+      }, 150);
       return () => clearTimeout(de);
     }, [v]);
     React.useEffect(() => {
-      console.log(p);
+      setTimeout(() => {
+        imgRef.current.style.transform = 'translateX(0px)';
+        imgRef.current.style.opacity = '1';
+      }, 300);
     }, [p]);
     return (
       <>
         <div className={'row m-0'}>
-          <div className={main} style={{}}>
-            <img src={imgList[p]} style={dim.main} />
+          <div className={`${main} overflow-hidden`} style={{}}>
+            <img
+              src={imgList[p]}
+              style={{
+                ...dim.main,
+                transition: 'transform 0.5s, opacity 0.1s',
+              }}
+              ref={imgRef}
+            />
           </div>
           <div className={thumb}>
             {imgList.map((i, iIndex) => (
